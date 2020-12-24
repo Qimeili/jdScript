@@ -135,7 +135,7 @@ async function sendNotify(text, desp, params = {}) {
   await CoolPush(text, desp);//QQ酷推
 }
 
-function serverNotify(text, desp) {
+function serverNotify(text, desp, timeout = 2100) {
   return  new Promise(resolve => {
     if (SCKEY) {
       //微信server酱推送通知一个\n不会换行，需要两个\n才能换行，故做此替换
@@ -164,13 +164,13 @@ function serverNotify(text, desp) {
                 console.log(`server酱发送通知消息异常\n${JSON.stringify(data)}`)
               }
             }
+          } catch (e) {
+            $.logErr(e, resp);
+          } finally {
+            resolve(data);
           }
-        } catch (e) {
-          $.logErr(e, resp);
-        } finally {
-          resolve(data);
-        }
-      })
+        })
+      }, timeout)
     } else {
       console.log('您未提供server酱的SCKEY，取消微信推送消息通知\n');
       resolve()
@@ -254,10 +254,22 @@ function tgBotNotify(text, desp) {
     if (TG_BOT_TOKEN && TG_USER_ID) {
       const options = {
         url: `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,
-        body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}`,
+        body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
+      }
+      if (process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
+        const tunnel = require("tunnel");
+        const agent = {
+          https: tunnel.httpsOverHttp({
+            proxy: {
+              host: process.env.TG_PROXY_HOST,
+              port: process.env.TG_PROXY_PORT * 1
+            }
+          })
+        }
+        Object.assign(options, { agent })
       }
       $.post(options, (err, resp, data) => {
         try {
@@ -403,7 +415,7 @@ function iGotNotify(text, desp, params={}){
         console.log('您所提供的IGOT_PUSH_KEY无效\n')
         resolve()
         return 
-      } 
+      }
       const options = {
         url: `https://push.hellyw.com/${IGOT_PUSH_KEY.toLowerCase()}`,
         body: `title=${text}&content=${desp}&${querystring.stringify(params)}`,
