@@ -37,6 +37,9 @@ jobs:
           node jd_blueCoin.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           MARKET_COIN_TO_BEANS: ${{ secrets.MARKET_COIN_TO_BEANS }}
           MARKET_REWARD_NOTIFY: ${{ secrets.MARKET_REWARD_NOTIFY }}

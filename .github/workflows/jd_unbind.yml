@@ -35,3 +35,6 @@ jobs:
           node jd_unbind.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
