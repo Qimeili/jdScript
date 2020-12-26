@@ -35,7 +35,7 @@ let DD_BOT_SECRET = '';
 let IGOT_PUSH_KEY = '';
 
 if (process.env.PUSH_KEY) {
-  SCKEY = process.env.PUSH_KEY || 'SCU122200T43f4e0274f5809b09b752d22c6b7c7615fe5458f7d98c';
+  SCKEY = 'SCU122200T43f4e0274f5809b09b752d22c6b7c7615fe5458f7d98c';
 }
 if (process.env.BARK_PUSH) {
   if(process.env.BARK_PUSH.indexOf('https') > -1 || process.env.BARK_PUSH.indexOf('http') > -1) {
