@@ -17,13 +17,13 @@ if ($.isNode()) {
  * cj 疯狂的joy
  */
 const shareCodes = [
-  // 一骑红尘妃子笑
+  // feng li li 
   {
     zd: 'mlrdw3aw26j3xbohgqjm2lh5ygkghiqmcen5egq@aio4su5intwh7p2hk3l7vvjaie3h7wlwy7o5jii@mh5uulbrvnknl7wmjk2xjoccvg5euicge6bh5pa',
     nc: '773791d4985b4e63ab0398aa00a06d8e@d01a48abd98b447397a336fed5502f45@924579e4f67147469fd61bbd9ab8bbad',
     mc: 'MTE1NDQ5OTIwMDAwMDAwMzkwODA5Nzc=@MTE1NDAxNzgwMDAwMDAwMzkxMTczMTk=@MTAxODc2NTEzNTAwMDAwMDAzMzI3MzkxNQ==',
     dd: 'T0225KkcRRcQo1XedBylk_JfcwCjVWnYaS5kRrbA@T018v_V7QxYY8FfTKBib1ACjVWnYaS5kRrbA@T0205KkcBV5foSWUVWuo46xwCjVWnYaS5kRrbA',
-    jx: '7dluIKQMp0bySgcr8AqFgw==',
+    jx: '1C8neRAb8zyN4Qdoj8mwew==@MioHPj7m29wRb2qNcLnscQ==',
     zz: 'S5KkcRRcQo1XedBylk_Jfcw@Sv_V7QxYY8FfTKBib1A@S5KkcBV5foSWUVWuo46xw',
     cj: 'zEwLa0knJCBM4lo67qP0Cat9zd5YaBeE@0kMU-TnijaUzIMbGORg07g==@3DVE4P2OU0k8AEqZZyMbAQ==',
   },
