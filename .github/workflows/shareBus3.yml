@@ -34,7 +34,7 @@ jobs:
           npm install
       - name: '运行 【助力码随机上车🚗】'
         run: |
-          node shareBus.js
+          node shareBus3.js
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}

@@ -17,15 +17,15 @@ if ($.isNode()) {
  * cj 疯狂的joy
  */
 const shareCodes = [
-  // feng li li 
+  // fyw
   {
-    zd: 'mlrdw3aw26j3xbohgqjm2lh5ygkghiqmcen5egq@aio4su5intwh7p2hk3l7vvjaie3h7wlwy7o5jii@mh5uulbrvnknl7wmjk2xjoccvg5euicge6bh5pa',
-    nc: '773791d4985b4e63ab0398aa00a06d8e@d01a48abd98b447397a336fed5502f45@924579e4f67147469fd61bbd9ab8bbad',
-    mc: 'MTE1NDQ5OTIwMDAwMDAwMzkwODA5Nzc=@MTE1NDAxNzgwMDAwMDAwMzkxMTczMTk=@MTAxODc2NTEzNTAwMDAwMDAzMzI3MzkxNQ==',
-    dd: 'T0225KkcRRcQo1XedBylk_JfcwCjVWnYaS5kRrbA@T018v_V7QxYY8FfTKBib1ACjVWnYaS5kRrbA@T0205KkcBV5foSWUVWuo46xwCjVWnYaS5kRrbA',
-    jx: '1C8neRAb8zyN4Qdoj8mwew==@MioHPj7m29wRb2qNcLnscQ==',
-    zz: 'S5KkcRRcQo1XedBylk_Jfcw@Sv_V7QxYY8FfTKBib1A@S5KkcBV5foSWUVWuo46xw',
-    cj: 'zEwLa0knJCBM4lo67qP0Cat9zd5YaBeE@0kMU-TnijaUzIMbGORg07g==@3DVE4P2OU0k8AEqZZyMbAQ==',
+    zd: 'aio4su5intwh7p2hk3l7vvjaie3h7wlwy7o5jii',
+    nc: 'd01a48abd98b447397a336fed5502f45',
+    mc: 'MTE1NDAxNzgwMDAwMDAwMzkxMTczMTk=',
+    dd: 'T018v_V7QxYY8FfTKBib1ACjVWnYaS5kRrbA',
+    jx: 'MioHPj7m29wRb2qNcLnscQ==',
+    zz: 'Sv_V7QxYY8FfTKBib1A',
+    cj: '0kMU-TnijaUzIMbGORg07g==',
   },
 ];
 $.result = []
@@ -33,69 +33,13 @@ $.result = []
 !(async () => {
   for (let i = 0; i < shareCodes.length; i++) {
     const {zd, nc, mc, dd, jx, zz, cj} = shareCodes[i];
-    if(zd && zd.indexOf("@")>=0){
-      let zds = zd.split('@')
-      for (let j = 0; j < zds.length; j++) {
-        await createZd(`http://api.turinglabs.net/api/v1/jd/bean/create/${zds[j]}/`)
-      }
-    }else{
-      await createZd(`http://api.turinglabs.net/api/v1/jd/bean/create/${zd}/`)
-    }
-
-    if(nc && nc.indexOf("@")>=0){
-      let ncs = nc.split('@')
-      for (let j = 0; j < ncs.length; j++) {
-        await createNc(`http://api.turinglabs.net/api/v1/jd/bean/create/${ncs[j]}/`)
-      }
-    }else{
-      await createNc(`http://api.turinglabs.net/api/v1/jd/bean/create/${nc}/`)
-    }
-    
-    if(mc && mc.indexOf("@")>=0){
-      let mcs = mc.split('@')
-      for (let j = 0; j < mcs.length; j++) {
-        await createMc(`http://api.turinglabs.net/api/v1/jd/bean/create/${mcs[j]}/`)
-      }
-    }else{
-      await createMc(`http://api.turinglabs.net/api/v1/jd/bean/create/${mc}/`)
-    }
-
-    if(dd && dd.indexOf("@")>=0){
-      let dds = dd.split('@')
-      for (let j = 0; j < dds.length; j++) {
-        await createDd(`http://api.turinglabs.net/api/v1/jd/bean/create/${dds[j]}/`)
-      }
-    }else{
-      await createDd(`http://api.turinglabs.net/api/v1/jd/bean/create/${dd}/`)
-    }
-
-    if(jx && jx.indexOf("@")>=0){
-      let jxs = jx.split('@')
-      for (let j = 0; j < jxs.length; j++) {
-        await createJx(`http://api.turinglabs.net/api/v1/jd/bean/create/${jxs[j]}/`)
-      }
-    }else{
-      await createJx(`http://api.turinglabs.net/api/v1/jd/bean/create/${jx}/`)
-    }
-
-    if(zz && zz.indexOf("@")>=0){
-      let zzs = zz.split('@')
-      for (let j = 0; j < zzs.length; j++) {
-        await createZz(`http://api.turinglabs.net/api/v1/jd/bean/create/${zzs[j]}/`)
-      }
-    }else{
-      await createZz(`http://api.turinglabs.net/api/v1/jd/bean/create/${zz}/`)
-    }
-
-    if(cj && cj.indexOf("@")>=0){
-      let cjs = cj.split('@')
-      for (let j = 0; j < cjs.length; j++) {
-        await createCj(`http://api.turinglabs.net/api/v1/jd/bean/create/${cjs[j]}/`)
-      }
-    }else{
-      await createCj(`http://api.turinglabs.net/api/v1/jd/bean/create/${cj}/`)
-    }
-
+    zd && await createZd(`http://api.turinglabs.net/api/v1/jd/bean/create/${zd}/`)
+    nc && await createNc(`http://api.turinglabs.net/api/v1/jd/farm/create/${nc}/`)
+    mc && await createMc(`http://api.turinglabs.net/api/v1/jd/pet/create/${mc}/`)
+    dd && await createDd(`http://api.turinglabs.net/api/v1/jd/ddfactory/create/${dd}/`)
+    jx && await createJx(`http://api.turinglabs.net/api/v1/jd/jxfactory/create/${jx}/`)
+    zz && await createZz(`https://code.chiang.fun/api/v1/jd/jdzz/create/${zz}/`)
+    cj && await createCj(`https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/${cj}/`)
   }
   await showMsg()
 })()
