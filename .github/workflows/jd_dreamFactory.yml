@@ -36,7 +36,9 @@ jobs:
         run: |
           node jd_dreamFactory.js
         env:
-          JD_JX_COOKIE: ${{ secrets.JD_JX_COOKIE }}
+          JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          JD_JX_COOKIE: ${{ secrets.JD_COOKIE }}
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
