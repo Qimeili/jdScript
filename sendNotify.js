@@ -29,8 +29,6 @@ let DD_BOT_TOKEN = '';
 //密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
 let DD_BOT_SECRET = '';
 
-<<<<<<< HEAD
-=======
 // =======================================企业微信机器人通知设置区域===========================================
 //此处填你企业微信机器人的 webhook(详见文档 https://work.weixin.qq.com/api/doc/90000/90136/91770)，例如：693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa
 //注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_KEY)
@@ -41,7 +39,6 @@ let QYWX_KEY = '';
 //注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_AM)
 let QYWX_AM = '';
 
->>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 // =======================================iGot聚合推送通知设置区域===========================================
 //此处填您iGot的信息(推送key，例如：https://push.hellyw.com/XXXXXXXX)
 //注：此处设置github action用户填写到Settings-Secrets里面（Name输入IGOT_PUSH_KEY）
@@ -80,8 +77,6 @@ if (process.env.DD_BOT_TOKEN) {
   }
 }
 
-<<<<<<< HEAD
-=======
 if (process.env.QYWX_KEY) {
   QYWX_KEY = process.env.QYWX_KEY;
 }
@@ -90,7 +85,6 @@ if (process.env.QYWX_AM) {
   QYWX_AM = process.env.QYWX_AM;
 }
 
->>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 if (process.env.IGOT_PUSH_KEY) {
   IGOT_PUSH_KEY = process.env.IGOT_PUSH_KEY
 }
@@ -99,12 +93,6 @@ async function sendNotify(text, desp, params = {}) {
   //提供五种通知
   await serverNotify(text, desp);
   text = text.match(/.*?(?=\s?-)/g) ? text.match(/.*?(?=\s?-)/g)[0] : text;
-<<<<<<< HEAD
-  await BarkNotify(text, desp, params);
-  await tgBotNotify(text, desp);
-  await ddBotNotify(text, desp);
-  await iGotNotify(text, desp, params);
-=======
   await BarkNotify(text, desp, params);//iOS Bark APP
   await tgBotNotify(text, desp);//telegram 机器人
   await ddBotNotify(text, desp);//钉钉机器人
@@ -112,7 +100,6 @@ async function sendNotify(text, desp, params = {}) {
   await qywxamNotify(text, desp); //企业微信应用消息推送
   await iGotNotify(text, desp, params);//iGot
   await CoolPush(text, desp);//QQ酷推
->>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 }
 
 function serverNotify(text, desp, timeout = 2100) {
@@ -308,8 +295,6 @@ function ddBotNotify(text, desp) {
   })
 }
 
-<<<<<<< HEAD
-=======
 function qywxBotNotify(text, desp) {
   return new Promise(resolve => {
     const options = {
@@ -419,7 +404,6 @@ function qywxamNotify(text, desp) {
   });
 }
 
->>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 function iGotNotify(text, desp, params={}){
   return  new Promise(resolve => {
     if (IGOT_PUSH_KEY) {
