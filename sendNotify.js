@@ -29,6 +29,19 @@ let DD_BOT_TOKEN = '';
 //密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
 let DD_BOT_SECRET = '';
 
+<<<<<<< HEAD
+=======
+// =======================================企业微信机器人通知设置区域===========================================
+//此处填你企业微信机器人的 webhook(详见文档 https://work.weixin.qq.com/api/doc/90000/90136/91770)，例如：693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa
+//注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_KEY)
+let QYWX_KEY = '';
+
+// =======================================企业微信应用消息通知设置区域===========================================
+//此处填你企业微信应用消息的 值(详见文档 https://work.weixin.qq.com/api/doc/90000/90135/90236)，依次填上corpid的值,corpsecret的值,touser的值,agentid的值，素材库图片id（见https://work.weixin.qq.com/api/doc/90000/90135/90253） 注意用,号隔开，例如：wwcff56746d9adwers,B-791548lnzXBE6_BWfxdf3kSTMJr9vFEPKAbh6WERQ,mingcheng,1000001,2COXgjH2UIfERF2zxrtUOKgQ9XklUqMdGSWLBoW_lSDAdafat
+//注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_AM)
+let QYWX_AM = '';
+
+>>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 // =======================================iGot聚合推送通知设置区域===========================================
 //此处填您iGot的信息(推送key，例如：https://push.hellyw.com/XXXXXXXX)
 //注：此处设置github action用户填写到Settings-Secrets里面（Name输入IGOT_PUSH_KEY）
@@ -67,6 +80,17 @@ if (process.env.DD_BOT_TOKEN) {
   }
 }
 
+<<<<<<< HEAD
+=======
+if (process.env.QYWX_KEY) {
+  QYWX_KEY = process.env.QYWX_KEY;
+}
+
+if (process.env.QYWX_AM) {
+  QYWX_AM = process.env.QYWX_AM;
+}
+
+>>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 if (process.env.IGOT_PUSH_KEY) {
   IGOT_PUSH_KEY = process.env.IGOT_PUSH_KEY
 }
@@ -75,10 +99,20 @@ async function sendNotify(text, desp, params = {}) {
   //提供五种通知
   await serverNotify(text, desp);
   text = text.match(/.*?(?=\s?-)/g) ? text.match(/.*?(?=\s?-)/g)[0] : text;
+<<<<<<< HEAD
   await BarkNotify(text, desp, params);
   await tgBotNotify(text, desp);
   await ddBotNotify(text, desp);
   await iGotNotify(text, desp, params);
+=======
+  await BarkNotify(text, desp, params);//iOS Bark APP
+  await tgBotNotify(text, desp);//telegram 机器人
+  await ddBotNotify(text, desp);//钉钉机器人
+  await qywxBotNotify(text, desp); //企业微信机器人
+  await qywxamNotify(text, desp); //企业微信应用消息推送
+  await iGotNotify(text, desp, params);//iGot
+  await CoolPush(text, desp);//QQ酷推
+>>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 }
 
 function serverNotify(text, desp, timeout = 2100) {
@@ -274,6 +308,118 @@ function ddBotNotify(text, desp) {
   })
 }
 
+<<<<<<< HEAD
+=======
+function qywxBotNotify(text, desp) {
+  return new Promise(resolve => {
+    const options = {
+      url: `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${QYWX_KEY}`,
+      json: {
+        msgtype: 'text',
+        text: {
+          content: ` ${text}\n\n${desp}`,
+        },
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    if (QYWX_KEY) {
+      $.post(options, (err, resp, data) => {
+        try {
+          if (err) {
+            console.log('企业微信发送通知消息失败！！\n');
+            console.log(err);
+          } else {
+            data = JSON.parse(data);
+            if (data.errcode === 0) {
+              console.log('企业微信发送通知消息完成。\n');
+            } else {
+              console.log(`${data.errmsg}\n`);
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp);
+        } finally {
+          resolve(data);
+        }
+      });
+    } else {
+      console.log('您未提供企业微信机器人推送所需的QYWX_KEY，取消企业微信推送消息通知\n');
+      resolve();
+    }
+  });
+}
+
+function qywxamNotify(text, desp) {
+  return new Promise(resolve => {
+    if (QYWX_AM) {
+	    var QYWX_AM_AY = QYWX_AM.split(',');
+	    const options_accesstoken = {
+	      url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken`,
+	      json: {
+	        corpid:`${QYWX_AM_AY[0]}`,
+	        corpsecret:`${QYWX_AM_AY[1]}`,
+	      },
+	      headers: {
+	        'Content-Type': 'application/json',
+	      },
+	    };
+	  $.post(options_accesstoken, (err, resp, data) => {  
+      var json = JSON.parse(data);
+      accesstoken = json.access_token;
+		const options = {
+	      url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accesstoken}`,
+	      json: {
+	        touser:`${QYWX_AM_AY[2]}`,
+	        agentid:`${QYWX_AM_AY[3]}`,
+	        msgtype: 'mpnews',
+	        mpnews: {
+                  articles: [
+                  {
+	          title: `${text}`,
+                  thumb_media_id: `${QYWX_AM_AY[4]}`,  
+                  author : `智能助手` ,
+                  content_source_url: ``,
+                  content : `${desp}`,  //暂时直接设置成了desp
+                  digest: `${desp}`
+                  }
+                  ]
+	        },
+	        safe:'0',
+	      },
+	      headers: {
+	        'Content-Type': 'application/json',
+	      },
+	    };
+      $.post(options, (err, resp, data) => {
+        try {
+          if (err) {
+            console.log('企业微信应用消息发送通知消息失败！！\n');
+            console.log(err);
+          } else {
+            data = JSON.parse(data);
+            if (data.errcode === 0) {
+              console.log('企业微信应用消息发送通知消息完成。\n');
+            } else {
+              console.log(`${data.errmsg}\n`);
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp);
+        } finally {
+          resolve(data);
+        }
+      });
+      });
+    } else {
+      console.log('您未提供企业微信应用消息推送所需的QYWX_AM，取消企业微信应用消息推送消息通知\n');
+      resolve();
+    }
+  });
+}
+
+>>>>>>> 4959c74c5ac999c8586958d006620f538ff07bb5
 function iGotNotify(text, desp, params={}){
   return  new Promise(resolve => {
     if (IGOT_PUSH_KEY) {
